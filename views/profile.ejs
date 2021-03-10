@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/profile.css" />
+<div id="profile-container">
+  <div id="profile-show">
+    <div id="user-photo">
+      <img src="/img/users/<%=linkUser.photo%>" />
+    </div>
+    <div id="user-data">
+      <p id="user-name"><%=linkUser.name%></p>
+      <p id="user-email"><%=linkUser.email%></p>
+      <p id="post-length"><%=posts.length%> posts</p>
+      <%if(user.id!=linkUser.id&&friend==undefined){%>
+        <button id="user-friendship" data-to-user-"<%=linkUser.id%>">Follow</button>
+      <%}%>
+      <%if(user.id!=linkUser.id&&friend!=undefined){%>
+        <button id="user-unfriendship" data-to-user-"<%=linkUser.id%>">Unfollow</button>
+      <%}%>
+    </div>
+  </div>
+  <hr />
+  <div id="user-post">
+    <%for(post of posts){%>
+    <div class="post-img">
+      <img src="/img/posts/<%=post.photo%>" />
+    </div>
+    <%}%>
+  </div>
+</div>

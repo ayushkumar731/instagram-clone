@@ -1,0 +1,27 @@
+<header id="header">
+  <div id="logo">
+    <h2><a href="/">Instagram</a></h2>
+  </div>
+  <div id="search">
+    <input type="text" id="search-user" placeholder="Search" />
+  </div>
+  <div id="profile">
+    <img src="/img/users/<%=user.photo%>" alt="user-photo" id="user-img" />
+    <div class="dropdown visible">
+      <div id="profile-btn"><a href="/<%=user.id%>">Profile</a></div>
+      <div id="settings"><a href="/accounts/edit">Settings</a></div>
+      <div id="logout">Logout</div>
+    </div>
+  </div>
+  <div id="searched-user">
+    <!-- <div class="searched-user-container">
+      <div class="user-photo">
+        <img src="/img/users/default.jpg" alt="user-photo" />
+      </div>
+      <div class="user-name-email">
+        <div class="user-name">Ayush Kumar</div>
+        <div class="user-email">kumarayush731@gmail.com</div>
+      </div>
+    </div> -->
+  </div>
+</header>

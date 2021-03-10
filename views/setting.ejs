@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/css/setting.css" />
+<div id="setting-container">
+  <div id="setting-user-data">
+    <form id="form-user-data">
+      <div class="form-group user-pic">
+        <div class="form-group user-photo-upload">
+          <img src="/img/users/<%=user.photo%>" alt="user-photo" id="my-img" />
+        </div>
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          placeholder="Choose Photo"
+          class="form__upload"
+        />
+        <label for="photo">Choose new Photo</label>
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%=user.name%>"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          value="<%=user.email%>"
+          id="email"
+          required
+        />
+      </div>
+      <button id="btn-save-user">SAVE SETTINGS</button>
+    </form>
+  </div>
+  <hr />
+  <div id="setting-user-password">
+    <form id="form-current-user-password">
+      <div class="form-group">
+        <label for="currentPassword">Current Password</label>
+        <input
+          type="password"
+          id="currentPassword"
+          name="currentPassword"
+          placeholder="********"
+          minlength="8"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="********"
+          minlength="8"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="********"
+          minlength="8"
+          required
+        />
+      </div>
+      <button id="btn-save-user-password">SAVE PASSWORD</button>
+    </form>
+  </div>
+</div>

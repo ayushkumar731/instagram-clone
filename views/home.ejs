@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/css/post.css" />
+<%if(locals.user){%>
+<div id="post-form">
+  <form id="form-post">
+    <input
+      type="text"
+      name="content"
+      placeholder="Add Post"
+      id="post-content"
+      required
+    />
+    <input
+      type="file"
+      name="photo"
+      placeholder="Choose Photo"
+      id="post-photo"
+      required
+    />
+    <button id="post-form-btn">Post</button>
+  </form>
+</div>
+
+<div id="home-post-content">
+  <%for(post of posts){%> <%-include('_post');%> <%}%>
+</div>
+<%}else{%> <%- include('sign-in'); %> <%}%>
+
+<script src="/js/like.js"></script>
+<script src="/js/comment.js"></script>
+<script src="/js/post.js"></script>

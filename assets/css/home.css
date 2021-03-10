@@ -1,0 +1,57 @@
+#searched-user {
+  width: 18rem;
+  max-height: 40rem;
+  overflow-y: scroll;
+  margin: auto;
+  display: flex;
+  position: fixed;
+  top: 50px;
+  background-color: #efeded;
+  flex-direction: column;
+  padding: 5px; }
+  #searched-user .searched-user-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; }
+    #searched-user .searched-user-container .user-photo {
+      width: 3rem; }
+      #searched-user .searched-user-container .user-photo img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; }
+    #searched-user .searched-user-container .user-name-email {
+      display: flex;
+      flex-direction: column; }
+      #searched-user .searched-user-container .user-name-email a {
+        color: blue;
+        text-decoration: none; }
+      #searched-user .searched-user-container .user-name-email a:hover {
+        text-decoration: underline; }
+
+#post-form {
+  width: 40rem;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #e2e2e2; }
+  #post-form #form-post {
+    display: flex;
+    flex-direction: column; }
+    #post-form #form-post #post-content {
+      padding: 10px;
+      font-size: 1.2rem;
+      outline: none; }
+    #post-form #form-post #post-photo {
+      margin: 0.8rem 0;
+      outline: none;
+      width: 10rem;
+      overflow: hidden; }
+    #post-form #form-post #post-form-btn {
+      padding: 5px;
+      outline: none;
+      border: none;
+      font-size: 1.2rem;
+      color: white;
+      width: 10rem;
+      background-color: dodgerblue;
+      cursor: pointer; }
