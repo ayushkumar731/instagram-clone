@@ -2,6 +2,7 @@ const catchAsync = require('../../../config/catchAsynch');
 const AppError = require('../../../config/AppError');
 const fs = require('fs');
 const path = require('path');
+const Slack = require('../../../services/slack');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -22,6 +23,13 @@ exports.createOne = (Model, poptOptions) =>
 
     if (poptOptions) {
       doc = await doc.populate(poptOptions).execPopulate();
+    }
+    if (!doc.post) {
+      Slack.sendPostNotification(doc.user, doc.content);
+    }
+
+    if (doc.post) {
+      Slack.sendCommentNotification(doc.user, doc.content);
     }
 
     //SEND RESPONSE

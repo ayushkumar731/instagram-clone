@@ -51,7 +51,7 @@ exports.updatePost = handleFactory.updateOne(Post);
 //******************CREATE POST DATA*********************//
 exports.postCreate = handleFactory.createOne(Post, {
   path: 'user likes',
-  select: 'name photo',
+  select: 'name photo email',
 });
 
 //**********************DELETE POST************************//

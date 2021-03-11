@@ -23,7 +23,7 @@ exports.setUserPostId = (req, res, next) => {
 //******************CREATE COMMENT DATA*********************//
 exports.commentCreate = handleFactory.createOne(Comment, {
   path: 'user likes',
-  select: 'name',
+  select: 'name email',
 });
 
 //********************UPDATE COMMENT************************//
