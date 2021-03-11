@@ -46,5 +46,19 @@ class Slack {
       ]
     });
   }
+
+  static sendUserDeleteNotification = (user) => {
+    slack.success({
+      text: 'user delete',
+      attachments: [
+        {
+          fields: [
+            { title: 'Name', value: `${user.name}`, short: true },
+            { title: 'Email', value: user.email, short: true },
+          ]
+        }
+      ]
+    });
+  }
 }
 module.exports = Slack;

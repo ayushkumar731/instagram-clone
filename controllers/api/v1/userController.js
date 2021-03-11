@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const Slack = require('../../../services/slack');
 const catchAsync = require('../../../config/catchAsynch');
 const AppError = require('../../../config/AppError');
 const handleFactory = require('./handleFactory');
@@ -116,6 +117,10 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    Slack.sendUserDeleteNotification(user);
+  }
   await Like.deleteMany({ user: req.user._id });
   await Comment.deleteMany({ user: req.user._id });
   await Post.deleteMany({ user: req.user._id });
