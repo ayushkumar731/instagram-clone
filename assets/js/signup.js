@@ -14,7 +14,8 @@ export const signup = async (name, email, password, confirmPassword) => {
     });
     if (res.data.status === 'success') {
       window.setTimeout(() => {
-        location.assign('/email-verification');
+        // location.assign('/email-verification');
+        location.assign('/accounts/login');
       }, 1000);
     }
   } catch (err) {
