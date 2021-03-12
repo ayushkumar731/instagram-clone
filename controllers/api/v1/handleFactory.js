@@ -28,13 +28,23 @@ exports.createOne = (Model, poptOptions) =>
     }
     if (!doc.post) {
       Slack.sendPostNotification(doc.user, doc.content);
+      analytics.track({
+        userId: `${doc.user._id}`,
+        event: 'new post',
+        properties: {
+          user_name: `${doc.user.name}`,
+          user_email: `${doc.user.email}`,
+          content: `${doc.content}`,
+          date: `${doc.createdAt}`
+        }
+      });
     }
 
     if (doc.post) {
       Slack.sendCommentNotification(doc.user, doc.content);
       analytics.track({
         userId: `${doc.user._id}`,
-        event: 'new post',
+        event: 'new comment',
         properties: {
           user_name: `${doc.user.name}`,
           user_email: `${doc.user.email}`,
