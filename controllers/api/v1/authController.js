@@ -113,6 +113,13 @@ exports.emailVerify = catchAsync(async (req, res, next) => {
   });
 });
 
+const identify = (userId, traits) => {
+  analytics.identify({
+    userId,
+    traits,
+  });
+}
+
 //**********************LOGIN SESSIONS**************************//
 exports.createSession = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -129,14 +136,11 @@ exports.createSession = catchAsync(async (req, res, next) => {
   // if (user.emailVerification === false) {
   //   return next(new AppError('verify your email', 401));
   // }
-  analytics.identify({
-    userId: `${user._id}`,
-    traits: {
-      name: `${user.name}`,
-      email: `${user.email}`,
-    }
-  });
-
+  const traits = {
+    name: `${user.name}`,
+    email: `${user.email}`,
+  }
+  await identify(user._id.toString(), traits)
   createSendToken(user, 200, req, res);
 });
 
