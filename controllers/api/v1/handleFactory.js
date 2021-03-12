@@ -1,3 +1,5 @@
+const Analytics = require('analytics-node');
+var analytics = new Analytics('3lhqPNLCyDBUDG8GjY802ZIGlDfZs6fR');
 const catchAsync = require('../../../config/catchAsynch');
 const AppError = require('../../../config/AppError');
 const fs = require('fs');
@@ -30,8 +32,17 @@ exports.createOne = (Model, poptOptions) =>
 
     if (doc.post) {
       Slack.sendCommentNotification(doc.user, doc.content);
+      analytics.track({
+        userId: `${doc.user._id}`,
+        event: 'new post',
+        properties: {
+          user_name: `${doc.user.name}`,
+          user_email: `${doc.user.email}`,
+          content: `${doc.content}`,
+          date: `${doc.createdAt}`
+        }
+      });
     }
-
     //SEND RESPONSE
     res.status(201).json({
       status: 'success',

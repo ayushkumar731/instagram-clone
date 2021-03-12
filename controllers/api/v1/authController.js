@@ -131,7 +131,6 @@ exports.createSession = catchAsync(async (req, res, next) => {
   // }
   analytics.identify({
     userId: `${user._id}`,
-    event: 'Sign in',
     traits: {
       name: `${user.name}`,
       email: `${user.email}`,
