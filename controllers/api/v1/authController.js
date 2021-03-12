@@ -1,3 +1,5 @@
+const Analytics = require('analytics-node');
+var analytics = new Analytics('3lhqPNLCyDBUDG8GjY802ZIGlDfZs6fR');
 const User = require('../../../models/user');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
@@ -127,6 +129,14 @@ exports.createSession = catchAsync(async (req, res, next) => {
   // if (user.emailVerification === false) {
   //   return next(new AppError('verify your email', 401));
   // }
+  analytics.identify({
+    userId: `${user._id}`,
+    event: 'Sign in',
+    traits: {
+      name: `${user.name}`,
+      email: `${user.email}`,
+    }
+  });
 
   createSendToken(user, 200, req, res);
 });
