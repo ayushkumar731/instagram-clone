@@ -50,6 +50,15 @@ exports.create = catchAsync(async (req, res, next) => {
   });
 
   if (newUser) {
+    analytics.track({
+      userId: `${doc.user._id}`,
+      event: 'new user signup',
+      properties: {
+        user_name: `${newUser.name}`,
+        user_email: `${newUser.email}`,
+        date: `${doc.createdAt}`
+      }
+    });
     Slack.sendSignsUpNotification(newUser);
   }
 
