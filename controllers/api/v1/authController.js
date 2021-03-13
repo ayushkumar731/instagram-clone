@@ -62,40 +62,40 @@ exports.create = catchAsync(async (req, res, next) => {
     Slack.sendSignsUpNotification(newUser);
   }
 
-  // const verifyToken = await newUser.emailVerify();
-  // await newUser.save({ validateBeforeSave: false });
-  // const verifyURL = `${req.protocol}://${req.get(
-  //   'host'
-  // )}/api/v1/user/email-verify/${verifyToken}`;
+  const verifyToken = await newUser.emailVerify();
+  await newUser.save({ validateBeforeSave: false });
+  const verifyURL = `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/user/email-verify/${verifyToken}`;
 
-  // const message = `Your Email verification Link ${verifyURL}`;
+  const message = `Your Email verification Link ${verifyURL}`;
 
-  // try {
-  //   await nodemailer({
-  //     email: newUser.email,
-  //     subject: 'For verify Your email',
-  //     message,
-  //   });
+  try {
+    await nodemailer({
+      email: newUser.email,
+      subject: 'For verify Your email',
+      message,
+    });
 
-  //   res.status(200).json({
-  //     status: 'success',
-  //     message: 'Verify Your Email Address.Please check your mail address',
-  //   });
-  // } catch (err) {
-  //   newUser.emailVerificationToken = undefined;
-  //   await newUser.save({ validateBeforeSave: false });
+    res.status(200).json({
+      status: 'success',
+      message: 'Verify Your Email Address.Please check your mail address',
+    });
+  } catch (err) {
+    newUser.emailVerificationToken = undefined;
+    await newUser.save({ validateBeforeSave: false });
 
-  //   return next(
-  //     new AppError(
-  //       'Something went wrong to send the mail, please try again later!',
-  //       500
-  //     )
-  //   );
-  // }.
-  res.status(200).json({
-    status: 'success',
-    message: 'Sign up successfully',
-  });
+    return next(
+      new AppError(
+        'Something went wrong to send the mail, please try again later!',
+        500
+      )
+    );
+  }
+  // res.status(200).json({
+  //   status: 'success',
+  //   message: 'Sign up successfully',
+  // });
 });
 
 //**********************EMAIL VERIFICATION*****************//
