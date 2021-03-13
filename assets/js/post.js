@@ -11,9 +11,6 @@
       form.append('photo', document.getElementById('post-photo').files[0]);
 
       await post(form);
-      document.getElementById('post-content').value = '';
-      document.getElementById('post-photo').value = '';
-      document.getElementById('post-form-btn').textContent = 'Post';
     });
   };
 
@@ -28,6 +25,9 @@
       let newPost = newPostDom(res.data.data);
       setTimeout(() => {
         $('#home-post-content').prepend(newPost);
+        document.getElementById('post-form-btn').textContent = 'Post';
+        document.getElementById('post-content').value = '';
+        document.getElementById('post-photo').value = '';
         document.getElementById('post-form-btn').textContent = 'Post';
         window.location.reload();
       }, 10000)

@@ -57,15 +57,10 @@ exports.upload = catchAsync(async (req, res, next) => {
 //RESIZE IMAGES
 exports.resizePostImages = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
-
-  req.file.filename = `post-${req.user.id}-${Date.now()}.jpeg`;
-
   await sharp(req.file.buffer)
     .resize(640, 320)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`assets/img/posts/${req.file.filename}`);
-
   next();
 });
 

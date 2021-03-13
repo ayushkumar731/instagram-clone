@@ -20,6 +20,7 @@ router
   .route('/:id')
   .patch(
     postController.PostImages,
+    postController.resizePostImages,
     postController.upload,
     postController.updatePost,
   )

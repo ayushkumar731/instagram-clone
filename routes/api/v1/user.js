@@ -36,6 +36,7 @@ router
   .delete(userController.deleteMe)
   .patch(
     userController.userImage,
+    userController.resizeUserImages,
     userController.upload,
     userController.updateMe
   );

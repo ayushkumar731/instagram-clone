@@ -91,19 +91,15 @@ exports.upload = catchAsync(async (req, res, next) => {
 
 
 //RESIZE IMAGES
-// exports.resizeUserImages = catchAsync(async (req, res, next) => {
-//   if (!req.file) return next();
+exports.resizeUserImages = catchAsync(async (req, res, next) => {
+  if (!req.file) return next();
 
-//   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
-
-//   await sharp(req.file.buffer)
-//     .resize(500, 500)
-//     .toFormat('jpeg')
-//     .jpeg({ quality: 90 })
-//     .toFile(`assets/img/users/${req.file.filename}`);
-
-//   next();
-// });
+  await sharp(req.file.buffer)
+    .resize(500, 500)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+  next();
+});
 
 const filterObj = (obj, ...allowedObj) => {
   const newObj = {};
