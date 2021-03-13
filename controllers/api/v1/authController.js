@@ -51,12 +51,12 @@ exports.create = catchAsync(async (req, res, next) => {
 
   if (newUser) {
     analytics.track({
-      userId: `${doc.user._id}`,
+      userId: `${newUser._id}`,
       event: 'new user signup',
       properties: {
         user_name: `${newUser.name}`,
         user_email: `${newUser.email}`,
-        date: `${doc.createdAt}`
+        date: `${newUser.createdAt}`
       }
     });
     Slack.sendSignsUpNotification(newUser);
@@ -149,7 +149,16 @@ exports.createSession = catchAsync(async (req, res, next) => {
     name: `${user.name}`,
     email: `${user.email}`,
   }
-  await identify(user._id.toString(), traits)
+  await identify(user._id.toString(), traits);
+  analytics.track({
+    userId: `${user._id}`,
+    event: 'user signin',
+    properties: {
+      user_name: `${user.name}`,
+      user_email: `${user.email}`,
+      date: `${user.createdAt}`
+    }
+  });
   createSendToken(user, 200, req, res);
 });
 
