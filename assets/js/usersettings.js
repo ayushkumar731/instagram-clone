@@ -8,13 +8,16 @@ export const userData = async (data) => {
       data,
     });
     if (res.data.status === 'success') {
-      document.getElementById(
-        'my-img'
-      ).src = `/img/users/${res.data.data.user.photo}`;
-      document.getElementById(
-        'user-img'
-      ).src = `/img/users/${res.data.data.user.photo}`;
-      showAlert('success', 'Data Updated successfully');
+      setTimeout(() => {
+        document.getElementById(
+          'my-img'
+        ).src = `${res.data.data.user.photo}`;
+        document.getElementById(
+          'user-img'
+        ).src = `${res.data.data.user.photo}`;
+        showAlert('success', 'Data Updated successfully');
+        document.getElementById('btn-save-user').textContent = 'SAVE SETTINGS';
+      }, 10000)
     }
   } catch (err) {
     showAlert('error', err);

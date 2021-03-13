@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const AWS = require('aws-sdk');
 const Slack = require('../../../services/slack');
 const catchAsync = require('../../../config/catchAsynch');
 const AppError = require('../../../config/AppError');
@@ -55,22 +56,54 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadUserImage = upload.single('photo');
+exports.userImage = upload.single('photo');
+
+//********************UPLOAD PHOTO ON S3**************************/
+
+exports.upload = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const S3 = await new AWS.S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    });
+    let file = req.file.originalname.split('.');
+    const fileType = file[file.length - 1];
+
+    const fileName = Math.floor(new Date() / 1000);
+    const filePath = `${fileName}.${fileType}`;
+    const key = filePath;
+
+    const params = {
+      Bucket: process.env.S3_BUCKET,
+      Key: key,
+      Body: req.file.buffer,
+      ACL: 'public-read',
+    }
+    req.file.filename = `${process.env.S3_BUCKET_LINK}/${key}`;
+    await S3.upload(params, (error, data) => {
+      if (error) {
+        console.log('error to upload a image')
+      }
+    })
+  }
+  next();
+})
+
 
 //RESIZE IMAGES
-exports.resizeUserImages = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
+// exports.resizeUserImages = catchAsync(async (req, res, next) => {
+//   if (!req.file) return next();
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+//   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  await sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`assets/img/users/${req.file.filename}`);
+//   await sharp(req.file.buffer)
+//     .resize(500, 500)
+//     .toFormat('jpeg')
+//     .jpeg({ quality: 90 })
+//     .toFile(`assets/img/users/${req.file.filename}`);
 
-  next();
-});
+//   next();
+// });
 
 const filterObj = (obj, ...allowedObj) => {
   const newObj = {};
@@ -98,13 +131,13 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
   const user = await User.findById(req.user._id);
-  if (req.file) {
-    if (user.photo != 'default.jpg') {
-      fs.unlinkSync(
-        path.join(__dirname, '../../../assets/img/users', user.photo),
-      );
-    }
-  }
+  // if (req.file) {
+  //   if (user.photo != 'default.jpg') {
+  //     fs.unlinkSync(
+  //       path.join(__dirname, '../../../assets/img/users', user.photo),
+  //     );
+  //   }
+  // }
   const filterBody = filterObj(req.body, 'name', 'email');
 
   if (req.file) filterBody.photo = req.file.filename;

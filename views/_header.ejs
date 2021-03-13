@@ -6,7 +6,7 @@
     <input type="text" id="search-user" placeholder="Search" />
   </div>
   <div id="profile">
-    <img src="/img/users/<%=user.photo%>" alt="user-photo" id="user-img" />
+    <img src=<%=user.photo%> alt="user-photo" id="user-img" />
     <div class="dropdown visible">
       <div id="profile-btn"><a href="/<%=user.id%>">Profile</a></div>
       <div id="settings"><a href="/accounts/edit">Settings</a></div>

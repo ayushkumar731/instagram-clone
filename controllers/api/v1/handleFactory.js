@@ -129,12 +129,6 @@ exports.deleteOne = (Model, Opts) =>
       );
     }
 
-    if (checkUser.photo) {
-      fs.unlinkSync(
-        path.join(__dirname, '../../../assets/img/posts', checkUser.photo)
-      );
-    }
-
     //DELETE POST
     const deleteDoc = await Model.findByIdAndDelete(req.params.id);
 

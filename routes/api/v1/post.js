@@ -9,8 +9,8 @@ router.use(passport.authenticate('jwt', { session: false }));
 router
   .route('/')
   .post(
-    postController.uploadPostImages,
-    postController.resizePostImages,
+    postController.PostImages,
+    postController.upload,
     postController.setUserId,
     postController.postCreate,
   )
@@ -19,8 +19,8 @@ router
 router
   .route('/:id')
   .patch(
-    postController.uploadPostImages,
-    postController.resizePostImages,
+    postController.PostImages,
+    postController.upload,
     postController.updatePost,
   )
   .delete(likeController.likeDestrobyPost, postController.deletePost)

@@ -84,7 +84,6 @@ if (userDataForm) {
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
     await userData(form);
-    document.getElementById('btn-save-user').textContent = 'SAVE SETTINGS';
   });
 }
 

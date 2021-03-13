@@ -51,7 +51,8 @@
   .post-container .post {
     width: 100%; }
     .post-container .post .post-img {
-      width: 100%;
+      width: 640px;
+      height: 320px;
       padding: 0 60px; }
       .post-container .post .post-img img {
         width: 100%;

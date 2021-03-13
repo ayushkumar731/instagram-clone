@@ -26,7 +26,11 @@
       });
 
       let newPost = newPostDom(res.data.data);
-      $('#home-post-content').prepend(newPost);
+      setTimeout(() => {
+        $('#home-post-content').prepend(newPost);
+        document.getElementById('post-form-btn').textContent = 'Post';
+        window.location.reload();
+      }, 10000)
       deletePost($(' .delete-post-button', newPost));
       new ToggleLike($(' .toggle-like-button', newPost));
 
@@ -42,7 +46,7 @@
       <div class="user" id="add">
         <div class="user-info">
           <div class="user-photo">
-            <img src="/img/users/${post.user.photo}" alt="user-photo" />
+            <img src="${post.user.photo}" alt="user-photo" />
           </div>
           <div class="user-name">
             <p><a href="/${post.user._id}">${post.user.name}</a></p>
@@ -57,7 +61,7 @@
       </div>
       <div class="post">
         <div class="post-img">
-          <img src="/img/posts/${post.photo}" />
+          <img src="${post.photo}" />
         </div>
         <div class="post-activity">
           <button class="like-unlike" >

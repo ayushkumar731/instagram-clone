@@ -3,104 +3,82 @@
     <div class="user" id="add">
       <div class="user-info">
         <div class="user-photo">
-          <img src="/img/users/<%=post.user.photo%>" alt="user-photo" />
+          <img src="<%=post.user.photo%>" alt="user-photo" />
         </div>
         <div class="user-name">
-          <p><a href="/<%=post.user.id%>"><%=post.user.name%></a></p>
+          <p><a href="/<%=post.user.id%>">
+              <%=post.user.name%>
+            </a></p>
         </div>
       </div>
       <%if(user.id==post.user.id){%>
-      <div class="dlt">
-        <button class="dlt-btn" data-dlt-id="<%=post.id%>">
-          <img
-            src=" https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
-            data-dlt-id="<%=post.id%>"
-            class="delete-post-button"
-          />
-        </button>
-      </div>
-      <%}%>
+        <div class="dlt">
+          <button class="dlt-btn" data-dlt-id="<%=post.id%>">
+            <img src=" https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg" data-dlt-id="<%=post.id%>"
+              class="delete-post-button" />
+          </button>
+        </div>
+        <%}%>
     </div>
     <div class="post">
       <div class="post-img">
-        <img src="/img/posts/<%=post.photo%>" />
+        <img src="<%=post.photo%>" />
       </div>
       <div class="post-activity">
         <button class="like-unlike">
-          <img
-            src="https://www.flaticon.com/svg/static/icons/svg/3507/3507627.svg"
-            data-like-id="<%=post.id%>"
-            data-like-model="Post"
-            class="toggle-like-button"
-            data-likes="<%=post.likes.length%>"
-            alt="like-icon"
-          />
+          <img src="https://www.flaticon.com/svg/static/icons/svg/3507/3507627.svg" data-like-id="<%=post.id%>"
+            data-like-model="Post" class="toggle-like-button" data-likes="<%=post.likes.length%>" alt="like-icon" />
         </button>
         <button class="comment-pop-btn">
-          <img
-            src=" https://www.flaticon.com/svg/static/icons/svg/2462/2462719.svg"
-            alt="comment-icon"
-          />
+          <img src=" https://www.flaticon.com/svg/static/icons/svg/2462/2462719.svg" alt="comment-icon" />
         </button>
       </div>
       <div class="likes" id="Post-like-<%=post.id%>">
         <%=post.likes.length%> likes
       </div>
       <div class="post-content">
-        <p><%=post.content %></p>
+        <p>
+          <%=post.content %>
+        </p>
       </div>
     </div>
     <div class="comment-form">
-      <form
-        class="form-comment"
-        data-comment-id="<%=post.id%>"
-        id="post-<%=post.id%>-comment-form"
-      >
-        <input
-          type="text"
-          class="comment"
-          placeholder="Add a comment..."
-          id="comment-<%=post.id%>"
-          name="content"
-          required
-        />
+      <form class="form-comment" data-comment-id="<%=post.id%>" id="post-<%=post.id%>-comment-form">
+        <input type="text" class="comment" placeholder="Add a comment..." id="comment-<%=post.id%>" name="content"
+          required />
         <button class="comment-btn" id="comment-btn-<%=post.id%>">Post</button>
       </form>
     </div>
   </div>
   <div class="comments-container" id="comment-container-<%=post.id%>">
     <%for(comments of post.comments){%>
-    <div id="comment-<%=comments.id%>">
-      <div class="name">
-        <a href="/<%=comments.user.id%>"><%=comments.user.name%></a>
-        <%if(user.id==comments.user.id ||user.id==post.user.id){%>
-        <button class="dlt-btn">
-          <img
-            src=" https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
-            data-dlt-comment-id="<%=comments.id%>"
-            class="delete-comment-button"
-          />
-        </button>
-        <%}%>
-      </div>
-      <p><%=comments.content%></p>
-      <div class="comment-activity">
-        <div class="likes" id="Comment-like-<%=comments.id%>">
-          <%=comments.likes.length%> likes
+      <div id="comment-<%=comments.id%>">
+        <div class="name">
+          <a href="/<%=comments.user.id%>">
+            <%=comments.user.name%>
+          </a>
+          <%if(user.id==comments.user.id ||user.id==post.user.id){%>
+            <button class="dlt-btn">
+              <img src=" https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
+                data-dlt-comment-id="<%=comments.id%>" class="delete-comment-button" />
+            </button>
+            <%}%>
         </div>
-        <button class="like-unlike">
-          <img
-            src="https://www.flaticon.com/svg/static/icons/svg/3507/3507627.svg"
-            data-like-id="<%=comments.id%>"
-            data-like-model="Comment"
-            class="toggle-like-button"
-            data-likes="<%=comments.likes.length%>"
-            alt="like-icon"
-          />
-        </button>
+        <p>
+          <%=comments.content%>
+        </p>
+        <div class="comment-activity">
+          <div class="likes" id="Comment-like-<%=comments.id%>">
+            <%=comments.likes.length%> likes
+          </div>
+          <button class="like-unlike">
+            <img src="https://www.flaticon.com/svg/static/icons/svg/3507/3507627.svg" data-like-id="<%=comments.id%>"
+              data-like-model="Comment" class="toggle-like-button" data-likes="<%=comments.likes.length%>"
+              alt="like-icon" />
+          </button>
+        </div>
+        <hr />
       </div>
-      <hr />
-    </div>
-    <%}%>
+      <%}%>
   </div>
 </div>

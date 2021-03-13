@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const AWS = require('aws-sdk');
 const Post = require('../../../models/posts');
 const Comment = require('../../../models/comments');
 const catchAsync = require('../../../config/catchAsynch');
@@ -22,7 +23,36 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadPostImages = upload.single('photo');
+exports.PostImages = upload.single('photo');
+
+exports.upload = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const S3 = await new AWS.S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    });
+    let file = req.file.originalname.split('.');
+    const fileType = file[file.length - 1];
+
+    const fileName = Math.floor(new Date() / 1000);
+    const filePath = `${fileName}.${fileType}`;
+    const key = filePath;
+
+    const params = {
+      Bucket: process.env.S3_BUCKET,
+      Key: key,
+      Body: req.file.buffer,
+      ACL: 'public-read',
+    }
+    req.file.filename = `${process.env.S3_BUCKET_LINK}/${key}`;
+    await S3.upload(params, (error, data) => {
+      if (error) {
+        console.log('error to upload a image')
+      }
+    })
+  }
+  next();
+})
 
 //RESIZE IMAGES
 exports.resizePostImages = catchAsync(async (req, res, next) => {
